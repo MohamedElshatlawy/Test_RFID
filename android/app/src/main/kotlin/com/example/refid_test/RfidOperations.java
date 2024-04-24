@@ -4,7 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.zebra.rfid.api3.*;
-
+import android.os.Handler;
+import android.os.Looper;
 
 import java.util.ArrayList;
 
@@ -108,7 +109,13 @@ public class RfidOperations
                                 Log.d(RfidOperations.TAG, "Tag ID " + myTags[index].getTagID());
 
                                 MethodChannel methodChannel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL);
-                                methodChannel.invokeMethod("getRFIDFromNative",  myTags[index].getTagID());
+                                final int finalIndex = index;
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        methodChannel.invokeMethod("getRFIDFromNative",  myTags[finalIndex].getTagID());
+                                    }
+                                });
                             }
                         }
 
