@@ -77,10 +77,21 @@ class _MyHomePageState extends State<MyHomePage> {
 Future<void> connectRFID() async {
   MethodChannel channel = MethodChannel('custom_rfid');
   try {
-    final String result = await channel.invokeMethod('getDataFromFlutter');
-    log("RFID-DATAIn Flutter:$result");
+    //channel.invokeMethod('getDataFromFlutter');
+    channel.setMethodCallHandler(_handleMethod);
   } on PlatformException catch (e) {
     print("Exception:${e.message}");
+  }
+}
+
+Future<dynamic> _handleMethod(MethodCall call) async {
+  switch (call.method) {
+    case 'getRFIDFromNative':
+      log("RFID DATA in Flutter:${call.arguments}");
+
+      break;
+    default:
+      throw MissingPluginException('notImplemented');
   }
 }
 

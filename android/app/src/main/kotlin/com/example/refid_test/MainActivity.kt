@@ -11,20 +11,20 @@ class MainActivity: FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
-            if (call.method == "getDataFromFlutter") {
-                getNativeData(flutterEngine) // Your method to fetch native data
+//            if (call.method == "getDataFromFlutter") {
+//                val data=getNativeDataFromRFID(flutterEngine) // Your method to fetch native data
 //                if (data != null) {
 //                    result.success(data)
 //                } else {
 //                    result.error("UNAVAILABLE", "Data not available.", null)
 //                }
-            } else if(call.method=="getRFIDFromNative"){
-                result.success(call.arguments)
-            }
+//            }
         }
+
+        getNativeDataFromRFID(flutterEngine);
     }
 
-    private fun getNativeData(flutterEngine: FlutterEngine){
+    private fun getNativeDataFromRFID(flutterEngine: FlutterEngine){
         // Implement your native code logic here
         RfidOperations(this,flutterEngine,CHANNEL);
 

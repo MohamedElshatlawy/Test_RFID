@@ -109,12 +109,6 @@ public class RfidOperations
 
                                 MethodChannel methodChannel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL);
                                 methodChannel.invokeMethod("getRFIDFromNative",  myTags[index].getTagID());
-
-                                if (myTags[index].getOpCode() == ACCESS_OPERATION_CODE.ACCESS_OPERATION_READ && myTags[index].getOpStatus() == ACCESS_OPERATION_STATUS.ACCESS_SUCCESS) {
-                                    if (myTags[index].getMemoryBankData().length() > 0) {
-                                        Log.d(RfidOperations.TAG, " Mem Bank Data " + myTags[index].getMemoryBankData());
-                                    }
-                                }
                             }
                         }
 
